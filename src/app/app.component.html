@@ -1,0 +1,50 @@
+<div class="container">
+<form [formGroup]="signupForm" (ngSubmit)="postfun(signupForm)">
+  <h1>Signup Form</h1>
+  <input id="firstname" formControlName="fname" placeholder="Enter Firstname" pattern='[a-zA-Z ]*'>
+  <div *ngIf="signupForm.controls['fname'].touched && signupForm.controls['fname'].invalid">
+      <p *ngIf="signupForm.controls['fname'].errors?.['required']">First Name is required.</p>
+      <p *ngIf="signupForm.controls['fname'].errors?.['pattern']">First Name cannot be numbers</p>
+  </div>
+
+
+  <div>
+      <input id="lastname" formControlName="lname" placeholder="Enter Lastname" pattern='[a-zA-Z ]*'>
+      <div *ngIf="signupForm.controls['lname'].touched && signupForm.controls['lname'].invalid">
+          <p *ngIf="signupForm.controls['lname'].errors?.['required']">Last Name is required.</p>
+          <p *ngIf="signupForm.controls['lname'].errors?.['pattern']">Last Name cannot be numbers</p>
+      </div>
+  </div>
+  <div>
+      <input id="email" formControlName="email" placeholder="Enter You Email">
+      <div *ngIf="signupForm.controls['email'].touched && signupForm.controls['emailed'].invalid">
+          <p *ngIf="signupForm.controls['email'].errors?.['required']">Email is required.</p>
+          <p *ngIf="signupForm.controls['email'].errors?.['email']">Email is not valid.</p>
+      </div>
+  </div>
+  <div>
+      <input id="password" formControlName="passwordname" placeholder="New Password" 
+             >
+      <div *ngIf="signupForm.controls['passwordname'].touched && signupForm.controls['passwordname'].invalid">
+          <p *ngIf="signupForm.controls['passwordname'].errors?.['required']">Password is required.</p>
+          <p *ngIf="signupForm.controls['passwordname'].errors?.['pattern']">
+              Password must contain at least one digit, one capital letter, and be at least 8 characters long.
+          </p>
+      </div>
+  </div>
+  
+  <div>
+      <input id="confirmpassword" formControlName="confirmpassword" placeholder="Confirm password"
+             (focus)="confirmPasswordFocused = true;">
+      <div *ngIf="confirmPasswordFocused">
+          <p *ngIf="signupForm.controls['confirmpassword'].errors?.['required']">Confirm Password is required.</p>
+          <p *ngIf="signupForm.controls['confirmpassword'].value !== signupForm.controls['passwordname'].value && !signupForm.controls['confirmpassword'].errors?.['required']">
+              Passwords do not match.
+          </p>
+      </div>
+  </div>
+  
+  <button type="submit">Submit</button>
+</form>
+</div>
+<router-outlet />
